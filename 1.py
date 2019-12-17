@@ -102,16 +102,34 @@ def logic_fixed_2(value):
 
 
 # process 1 4
-def save(value):
-    f = open( 'dump.txt', 'w' )
-    f.write(repr(newlst))
+def save_repr(value):
+    f = open( 'dump_repr.txt', 'w' )
+    f.write(repr(value))
     f.close()
 
-def load():
-    f = open( 'dump.txt', 'r' )
+def load_repr():
+    f = open( 'dump_repr.txt', 'r' )
     line = f.readline()
     f.close()
     return eval(line)
+    # return list(map(int, line.strip("[]").split(", ")))
 
-save(newlst)
-print(load())
+# save_repr(newlst)
+# print(load_repr())
+
+
+def save_plain(value):
+    f = open( 'dump_plain.txt', 'w' )
+    f.write(' '.join(map(str, value)))
+    f.close()
+
+def load_plain():
+    f = open( 'dump_plain.txt', 'r' )
+    line = f.readline()
+    f.close()
+    return map(int, line.split())
+
+# save_plain(newlst)
+# print(*load_plain())
+
+
