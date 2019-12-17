@@ -207,3 +207,22 @@ class vendor_material2(vendor_material1):
 # print(vm1 > vm2_1)
 
 
+
+
+def reverse_order(fn):
+    def wrapper_function(*l):
+        print(l)
+        res = fn(*l)
+        return res[::-1]
+    return wrapper_function
+
+# process 3 1
+@reverse_order
+def transform(list1, list2):
+    result = []
+    for i in list1:
+        for j in list2:
+            result.append(f"{i} + {j}")
+    return result
+
+print(transform([1, 2, 3, 4], [5, 6, 7, 8]))
