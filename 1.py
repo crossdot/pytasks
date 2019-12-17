@@ -51,7 +51,67 @@ newlst.append(last)
 #     return l[0], statistics.mean(l[1:-1]), l[-1]
 def process4(l):
     return l[0], sum(l[1:-1]) / float(len(l) - 2), l[-1]
-print(process4(lst1))
+# print(process4(lst1))
 
 # process5
-print(*map(lambda l: [max(l), min(l)], [[1,2,3,4,5]]))
+min_max = lambda l : [max(l), min(l)]
+# print(*map(min_max, [[1,2,3,4,5]]))
+
+
+# process 1 1
+res = map(lambda i : i ** (1/4.0), [16, 81, 256])
+# print(*res)
+
+# process 1 2
+def get_max(a, b): # зачем функцию писать то?
+    # return max(a, b)
+    return a if a > b else b
+# print(functools.reduce(get_max, [1,5,7,1,3,2]))
+
+# process 1 3
+def logic(value):
+    encounter = 0 # зачемто завели переменную со значением 0, в которую будет записываться необходимое изменение значения аргумента
+    if value == 0: # если значение равно единице
+        encounter += 1 # то увеличиваем переменную на единицу
+        return value + encounter # а потом увеличиваем и значение аргумента на величину переменной
+    elif value > 0: # аналогично предыдущему для чисел больше нуля
+        encounter += 2 # увеличиваем переменную на 2
+        return value + encounter # увеличиваем аргумент
+    else: # аналогично предыдущему для чисел больше нуля
+        encounter -= 1 # уменьшаем переменную
+        return value + encounter # уменьшаем аргумент (прибавляем отрицательное значение)
+lst = [-1, 10, 0, 12, 0, 0, 16, -2, 2, -3, -5, -6]
+newlst = [logic(value) for value in lst]
+# print(*newlst)
+# print(*map(logic, lst))
+
+def logic_fixed(value):
+    if value == 0:
+        return value + 1
+    elif value > 0:
+        return value + 2
+    else:
+        return value - 1
+# print(*map(logic_fixed, lst))
+
+def logic_fixed_2(value):
+    return value + (value >= 0) + (value > 0) - (value < 0)
+# print(*map(logic_fixed_2, lst))
+
+# print(*map(lambda v: v + (v >= 0) + (v > 0) - (v < 0), lst))
+
+
+# process 1 4
+def save(value):
+    f = open( 'dump.txt', 'w' )
+    f.write(repr(newlst))
+    f.close()
+
+def load():
+    f = open( 'dump.txt', 'r' )
+    line = f.readline()
+    f.close()
+    return eval(line)
+
+save(newlst)
+print(load())
