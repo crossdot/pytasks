@@ -211,7 +211,6 @@ class vendor_material2(vendor_material1):
 
 def reverse_order(fn):
     def wrapper_function(*l):
-        print(l)
         res = fn(*l)
         return res[::-1]
     return wrapper_function
@@ -225,4 +224,15 @@ def transform(list1, list2):
             result.append(f"{i} + {j}")
     return result
 
-print(transform([1, 2, 3, 4], [5, 6, 7, 8]))
+# print(transform([1, 2, 3, 4], [5, 6, 7, 8]))
+
+
+import random
+def random_of_list(list, n):
+    num = 0
+    while num < n:
+        yield random.choice(list)
+        num += 1
+
+for i in random_of_list([10, 20, 30, 40, 50, 60, 70, 80, 90], 10):
+    print(i)
