@@ -133,3 +133,77 @@ def load_plain():
 # print(*load_plain())
 
 
+class Example:
+    z = 1
+    def __init__(self):
+        self.a = 0
+
+o1 = Example()
+o1.counter = 1
+o1.type = 'something going on 1'
+o2 = Example()
+o2.id = 1
+o2.type = 'something going on 2'
+o3 = Example()
+o3.oid = 1
+o3.type = 'something going on 3'
+o4 = Example()
+o4.pid = 1
+o4.type = 'something going on 4'
+
+def print_o_v1(o):
+    print("class attributes {0}".format(vars(o.__class__)))
+    print("instance attributes {0}".format(vars(o)))
+# print_o_v1(o1)
+
+
+class vendor_material1:
+    def __init__(self, id, price, quality, deliveries):
+        self.id = id
+        self.price = float(price)
+        self.quality = float(quality)
+        self.deliveries = deliveries
+    def __del__(self):
+        print("vendor material 1 with id={0} has been deleted".format(self.id))
+    def get_quality(self):
+        return self.quality
+    def reliability(self):
+        return 1 - sum(self.deliveries) / float(len(self.deliveries)) * 0.1
+    def rating(self, max_price, values):
+        return (1-self.price/float(max_price)) * values[0] + self.get_quality() * values[1] + (1-self.reliability()) * values[2]
+    def cost(self, size):
+        return self.price * size
+    
+    def __eq__(self, other):
+        return self.rating(MAX_PRICE, VALUES) == other.rating(MAX_PRICE, VALUES)
+    def __lt__(self, other):
+        return self.rating(MAX_PRICE, VALUES) < other.rating(MAX_PRICE, VALUES)
+    def __gt__(self, other):
+        return self.rating(MAX_PRICE, VALUES) > other.rating(MAX_PRICE, VALUES)
+    def __le__(self, other):
+        return self.rating(MAX_PRICE, VALUES) <= other.rating(MAX_PRICE, VALUES)
+    def __ge__(self, other):
+        return self.rating(MAX_PRICE, VALUES) >= other.rating(MAX_PRICE, VALUES)
+# vm1 = vendor_material1(1,80,0.1,[1,2,4,6,1,4])
+# vm2 = vendor_material1(1,70,0.1,[1,2,4,6,1,4])
+MAX_PRICE=100
+VALUES=[0.4, 0.3, 0.3]
+# print(vm1.reliability())
+# print(vm1.rating(200, [0.1, 0.5, 0.4]))
+# print(vm1 > vm2)
+
+class vendor_material2(vendor_material1):
+    def __init__(self, id, price, qualities, deliveries):
+        self.qualities = qualities
+        super().__init__(id, price, 0, deliveries)
+    def get_quality(self):
+        return sum(self.qualities) / float(len(self.qualities))
+    def reliability(self):
+        return 0.345
+    def __str__(self):
+        return vars(self)
+
+# vm2_1 = vendor_material2(10, 100, [0.9, 0.7, 0.6, 0.9, 0.8], [1, 2, 0, 1, 1])
+# print(vm1 > vm2_1)
+
+
