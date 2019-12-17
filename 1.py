@@ -258,5 +258,17 @@ class SimpleIterator:
         else:
             raise StopIteration
 
-for eggs in SimpleIterator([1,2,3], 2, 5):
-    print(eggs)
+# for eggs in SimpleIterator([1,2,3], 2, 5):
+#     print(eggs)
+
+
+
+
+def get_clue(list1, list2):
+    i = 0
+    while i < len(list1) and i < len(list2):
+        yield (list1[i], list2[i])
+        i += 1
+
+for c in get_clue([1, 2, 3], [4, 5, 6]):
+    print(c)
