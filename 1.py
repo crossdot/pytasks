@@ -233,6 +233,30 @@ def random_of_list(list, n):
     while num < n:
         yield random.choice(list)
         num += 1
+# for i in random_of_list([10, 20, 30, 40, 50, 60, 70, 80, 90], 10):
+#     print(i)
 
-for i in random_of_list([10, 20, 30, 40, 50, 60, 70, 80, 90], 10):
-    print(i)
+class SimpleIterator:
+    def __iter__(self):
+        return self
+
+    def __init__(self, l, step, limit):
+        self.list = l
+        self.step = step
+        self.limit = limit
+        self.counter = 0
+        self.current_step = 0
+
+    def __next__(self):
+        if self.current_step < self.limit:
+            if self.counter >= len(self.list):
+                self.counter %= len(self.list)
+            val = self.list[self.counter]
+            self.counter += self.step
+            self.current_step += 1;
+            return val
+        else:
+            raise StopIteration
+
+for eggs in SimpleIterator([1,2,3], 2, 5):
+    print(eggs)
